@@ -1,15 +1,28 @@
-import { PostsDataType } from "../assets/data";
 import { ReducerType, ActionsType } from "./types";
-import { PostsActionType } from "./actions";
+import { PostsActionType, UserActionsType } from "./actions";
 
 const initialState: ReducerType = {
-  posts: [] as PostsDataType,
+  posts: [],
+  user: { lastName: "", firstName: "" },
 };
 
 const reducer = (state = initialState, action: ActionsType): ReducerType => {
   switch (action.type) {
     case PostsActionType.fetchPostsData:
-      return state;
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case UserActionsType.userRegistration:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case UserActionsType.userLogout:
+      return {
+        ...state,
+        user: initialState.user,
+      };
     default:
       return state;
   }
